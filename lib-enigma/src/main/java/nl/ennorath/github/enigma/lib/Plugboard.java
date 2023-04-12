@@ -1,6 +1,7 @@
 package nl.ennorath.github.enigma.lib;
 
 import java.util.HashMap;
+import java.util.Map;
 
 class Plugboard {
     static final Character[] alphabet =
@@ -8,6 +9,11 @@ class Plugboard {
     HashMap<Character, Character> plugboardSettings = new HashMap<>();
     public Plugboard(HashMap<Character, Character> pairs) {
         plugboardSettings.putAll(pairs);
+
+        // Pairs have to be added in reverse. That is, if A maps to B, then B maps to A also
+        for (Map.Entry<Character, Character> pair : pairs.entrySet()) {
+            plugboardSettings.put(pair.getValue(), pair.getKey());
+        }
 
         for (Character c : alphabet) {
             // If a letter is not mapped by a plugboard setting
